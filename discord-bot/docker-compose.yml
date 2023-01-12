@@ -8,7 +8,7 @@ services:
       - 6379:6379
 
   discord-bot:
-    image: discord-bot
+    image: ghcr.io/kings-world/fabric-microservice:latest
     container_name: discord-bot
     build: .
     env_file: .docker.env
