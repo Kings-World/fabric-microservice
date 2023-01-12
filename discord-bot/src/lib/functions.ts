@@ -1,7 +1,3 @@
-import {
-    isGuildBasedChannel,
-    canReadMessages,
-} from "@sapphire/discord.js-utilities";
 import { container } from "@sapphire/framework";
 import { Result } from "@sapphire/result";
 import { Stopwatch } from "@sapphire/stopwatch";
@@ -21,16 +17,11 @@ export async function timed<T>(
 }
 
 export async function fetchChannel() {
-    const channel = await container.client.channels.fetch(
-        envParseString("CHANNEL_ID")
-    );
-    if (
-        !isGuildBasedChannel(channel) ||
-        !canReadMessages(channel) ||
-        !channel.isTextBased()
-    ) {
-        throw new Error("Channel must be text based");
-    }
+    const id = envParseString("CHANNEL_ID");
+    const channel = await container.client.channels.fetch(id);
+
+    if (!channel) throw new Error(`Channel "${id}" does not exist`);
+    if (!channel.isTextBased()) throw new Error(`Channel #${channel.name} is not text based`);
 
     return channel;
 }
