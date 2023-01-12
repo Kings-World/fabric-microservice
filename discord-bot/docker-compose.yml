@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+
+  discord-bot:
+    image: discord-bot
+    container_name: discord-bot
+    build: .
+    env_file: .docker.env
+    depends_on:
+      - redis

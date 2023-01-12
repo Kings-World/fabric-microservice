@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+      /* Basic */
+      "module": "ESNext",
+      "lib": ["ESNext"],
+      "target": "ES2022",
+      "outDir": "dist",
+      "rootDir": "src",
+      "baseUrl": "./src",
+
+      /* Modules */
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+
+      /* Emit */
+      "declaration": false,
+      "declarationMap": false,
+      "pretty": true,
+      "esModuleInterop": true,
+      "newLine": "lf",
+      "removeComments": true,
+      "inlineSourceMap": true,
+      "useDefineForClassFields": true,
+      "importHelpers": true,
+
+      /* Strict Options */
+      "strict": true,
+      "skipLibCheck": true,
+      "alwaysStrict": true,
+      "allowSyntheticDefaultImports": true,
+      "strictNullChecks": true,
+      "strictBindCallApply": true,
+      "strictPropertyInitialization": true,
+      "importsNotUsedAsValues": "error",
+      "noFallthroughCasesInSwitch": true,
+      "noUnusedLocals": true,
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "noImplicitReturns": false,
+      "noUnusedParameters": true,
+      "noEmitHelpers": false,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "preserveConstEnums": true,
+
+      /* Types */
+      "types": ["node"],
+      "forceConsistentCasingInFileNames": true,
+      "paths": {
+          "#lib/*": ["lib/*"]
+      }
+  },
+  "include": ["src/**/*.ts"]
+}
