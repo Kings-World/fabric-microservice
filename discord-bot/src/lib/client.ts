@@ -14,7 +14,7 @@ const client = new SapphireClient({
             { name: "play.kings-world.net", type: ActivityType.Playing },
         ],
     },
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
+    intents: [GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
     allowedMentions: { repliedUser: false },
 });
 
