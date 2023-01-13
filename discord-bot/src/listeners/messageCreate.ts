@@ -16,12 +16,16 @@ export class MessageCreate extends Listener {
             message.webhookId
         ) return;
 
+        let author = message.author.tag;
+
+        if (message.reference) {
+            const reply = await message.fetchReference();
+            author = `${author} -> ${reply.author.tag}`;
+        }
+
         await publisher.publish(
             RedisChannel.DiscordToMinecraft,
-            JSON.stringify({
-                content: contentWithAttachments(message),
-                author: message.author.tag
-            })
+            `${author} : ${contentWithAttachments(message)}`
         );
     }
 }
