@@ -7,7 +7,6 @@ on:
 
 jobs:
   publish:
-    if: github.actor != 'renovate[bot]'
     runs-on: ubuntu-latest
     name: Publish to ghcr.io
     permissions:
