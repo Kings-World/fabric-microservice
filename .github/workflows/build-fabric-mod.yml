@@ -14,6 +14,10 @@ on:
     paths:
       - fabric-mod/**
 
+defaults:
+  run:
+    working-directory: ./fabric-mod
+
 jobs:
   build:
     strategy:
@@ -34,8 +38,6 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: zulu
           cache: gradle
-      - name: change directory
-        run: ls -la && cd ./fabric-mod
       - name: make gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
         run: ls -la && chmod +x ./gradlew
