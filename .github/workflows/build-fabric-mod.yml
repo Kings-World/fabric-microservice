@@ -13,24 +13,22 @@ on:
     paths:
       - fabric-mod/**
 
-defaults:
-  run:
-    working-directory: fabric-mod
-
 jobs:
   build:
     strategy:
       matrix:
         # Use these Java versions
-        java: [
-          17,    # Current Java LTS & minimum supported by Minecraft
-        ]
+        java: [17]
         # and run on both Linux and Windows
         os: [ubuntu-22.04, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
       - name: checkout repository
         uses: actions/checkout@v3
+      - name: list files
+        run: ls -la
+      - name: change directory
+        run: cd fabric-mod
       - name: validate gradle wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: setup jdk ${{ matrix.java }}
