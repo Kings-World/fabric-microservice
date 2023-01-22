@@ -40,7 +40,7 @@ jobs:
           cache: gradle
       - name: make gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
-        run: ls -la && chmod +x ./gradlew
+        run: chmod +x ./gradlew
       - name: build
         run: ./gradlew build
       - name: capture build artifacts
