@@ -13,38 +13,38 @@ import org.slf4j.LoggerFactory;
 import static net.kings_world.Utils.*;
 
 public class KingsWorld implements ModInitializer {
-	public static final String modId = "kings-world";
-	public static final Logger logger = LoggerFactory.getLogger(modId);
-	public static final JedisSubscriber redis = new JedisSubscriber();
-	public static JedisClient publisher;
-	public static ModConfig modConfig;
+    public static final String modId = "kings-world";
+    public static final Logger logger = LoggerFactory.getLogger(modId);
+    public static final JedisSubscriber redis = new JedisSubscriber();
+    public static JedisClient publisher;
+    public static ModConfig modConfig;
 
-	@Override
-	public void onInitialize() {
-		ServerLifecycleEvents.SERVER_STARTING.register(server -> {
-			loadConfig();
-			redis.subscribe(server);
-			publish(":white_check_mark: The server has started!");
-		});
+    @Override
+    public void onInitialize() {
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+            loadConfig();
+            redis.subscribe(server);
+            publish(":white_check_mark: The server has started!");
+        });
 
-		ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
-        	publish(":octagonal_sign: The server has stopped!");
-			redis.unsubscribe();
-			publisher.close();
-		});
+        ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
+            publish(":octagonal_sign: The server has stopped!");
+            redis.unsubscribe();
+            publisher.close();
+        });
 
-		ServerMessageEvents.CHAT_MESSAGE.register((message, sender, typeKey) ->
-				publishViaPlayer(sender, String.format(
-					"%s: %s",
-					sender.getName().getString(),
-					message.getSignedContent().plain()
-				))
-		);
-	}
+        ServerMessageEvents.CHAT_MESSAGE.register((message, sender, typeKey) ->
+            publishViaPlayer(sender, String.format(
+                "%s: %s",
+                sender.getName().getString(),
+                message.getSignedContent().plain()
+            ))
+        );
+    }
 
-	public void loadConfig() {
-		printBanner();
-		modConfig = new ModConfig("config.yml");
-		publisher = new JedisClient();
-	}
+    public void loadConfig() {
+        printBanner();
+        modConfig = new ModConfig("config.yml");
+        publisher = new JedisClient();
+    }
 }
