@@ -1,0 +1,76 @@
+#  _  _ _ _  _ ____ ____    _ _ _ ____ ____ _    ___
+#  |_/  | |\ | | __ [__     | | | |  | |__/ |    |  \
+#  | \_ | | \| |__] ___]    |_|_| |__| |  \ |___ |__/
+#
+# Made for Version ${version}
+
+# The URL which should be used to get the avatars of users
+# Must return a Discord compatible image and nothing else
+avatar_url: https://crafthead.net/helm/{uuid}
+
+# [Required] The connection details of the Redis server to use
+# The communication between the bot and the server is done via Redis Pub/Sub
+redis:
+    # The hostname of the Redis server
+    # This can be an IP address or a domain name
+    # If left empty, it will default to connecting to Redis on the localhost
+    hostname: localhost
+
+    # The port on which the Redis server is listening for connections
+    # The default port for Redis is 6379
+    port: 6379
+
+    # The password to use when connecting to the Redis server
+    # If no password is set, leave it empty
+    password: ""
+
+# Customize the messages sent by the mod to your liking
+# Each message has a description and list of placeholders that can be used, if any
+# All messages support Discord message formatting (guide: https://seren.link/Hv1E)
+# Note: This mod does not use Placeholder API
+messages:
+    # The message that is sent to Discord when the server has started
+    # Have any placeholder suggestions? Feel free to suggest them to us
+    server_started: ":white_check_mark: The server has started!"
+
+    # The message that is sent to Discord when the server has stopped
+    # Have any placeholder suggestions? Feel free to suggest them to us
+    server_stopped: ":octagonal_sign: The server has stopped!"
+
+    # The message that is sent to Discord when a player sends a message on minecraft
+    # The following placeholders can be used:
+    # - {name}: The player's name
+    # - {uuid}: The player's id
+    # - {content}: The player's message
+    # Have any placeholder suggestions? Feel free to suggest them to us
+    chat_message: "{name}: {content}"
+
+    # The message that is sent to Discord when a player joins the server
+    # The following placeholders can be used:
+    # - {name}: The player's name
+    # - {uuid}: The player's id
+    # Have any placeholder suggestions? Feel free to suggest them to us
+    player_join: ":arrow_right: {name} has joined!"
+
+    # The message that is sent to Discord when a player leaves the server
+    # Message formatting and the following placeholders can be used:
+    # - {name}: The player's name
+    # - {uuid}: The player's id
+    # Have any placeholder suggestions? Feel free to suggest them to us
+    player_leave: ":arrow_left: {name} has left!"
+
+    # The message that is sent to Discord when a player dies or gets killed
+    # Message formatting and the following placeholders can be used:
+    # - {name}: The player's name
+    # - {uuid}: The player's id
+    # - {message}: The death message
+    # Have any placeholder suggestions? Feel free to suggest them to us
+    player_death: ":skull: {message}"
+
+    # The message that is sent to Discord when a player completes an advancement
+    # Message formatting and the following placeholders can be used:
+    # - {name}: The player's name
+    # - {uuid}: The player's id
+    # - {title}: The achievement title
+    # Have any placeholder suggestions? Feel free to suggest them to us
+    player_advancement: ":medal: {name} has completed the advancement **{title}**!"

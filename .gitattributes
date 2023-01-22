@@ -1,3 +1,3 @@
 # Auto line endings
 # credits: https://github.com/PreMiD/Presences/blob/main/.gitattributes
-discord-bot/* text=auto eol=lf
+* text=auto eol=lf
