@@ -32,6 +32,7 @@ public class Utils {
     }
 
     public static void publish(String message) {
+        if (isShuttingDown) return;
         publisher.publish("minecraft-to-discord", message);
     }
 }

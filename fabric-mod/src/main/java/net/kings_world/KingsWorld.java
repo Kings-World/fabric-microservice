@@ -16,6 +16,7 @@ public class KingsWorld implements ModInitializer {
     public static final String modId = "kings-world";
     public static final Logger logger = LoggerFactory.getLogger(modId);
     public static final JedisSubscriber redis = new JedisSubscriber();
+    public static boolean isShuttingDown = false;
     public static JedisClient publisher;
     public static ModConfig modConfig;
 
@@ -29,6 +30,7 @@ public class KingsWorld implements ModInitializer {
 
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
             publish(":octagonal_sign: The server has stopped!");
+            isShuttingDown = true;
             redis.unsubscribe();
             publisher.close();
         });
