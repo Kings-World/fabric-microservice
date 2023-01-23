@@ -10,7 +10,9 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
+import static net.kings_world.KingsWorld.modConfig;
 import static net.kings_world.Utils.publishViaPlayer;
+import static net.kings_world.Utils.HashReplacer;
 
 @Mixin(ServerPlayNetworkHandler.class)
 public class ServerPlayNetworkHandlerMixin {
@@ -19,9 +21,9 @@ public class ServerPlayNetworkHandlerMixin {
 
     @Inject(at = @At("TAIL"), method = "onDisconnected")
     private void onPlayerLeave(Text reason, CallbackInfo info) {
-        publishViaPlayer(player, String.format(
-            ":arrow_left: %s has left!",
-            player.getEntityName()
-        ));
+        HashReplacer playerLeave = new HashReplacer();
+        playerLeave.put("name", player.getEntityName());
+
+        publishViaPlayer(player, modConfig.playerLeave, playerLeave);
     }
 }

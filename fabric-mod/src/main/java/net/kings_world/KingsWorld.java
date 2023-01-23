@@ -25,23 +25,23 @@ public class KingsWorld implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
             loadConfig();
             redis.subscribe(server);
-            publish(":white_check_mark: The server has started!");
+            publish(modConfig.serverStarted);
         });
 
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
-            publish(":octagonal_sign: The server has stopped!");
+            publish(modConfig.serverStopped);
             isShuttingDown = true;
             redis.unsubscribe();
             publisher.close();
         });
 
-        ServerMessageEvents.CHAT_MESSAGE.register((message, sender, typeKey) ->
-            publishViaPlayer(sender, String.format(
-                "%s: %s",
-                sender.getName().getString(),
-                message.getSignedContent().plain()
-            ))
-        );
+        ServerMessageEvents.CHAT_MESSAGE.register((message, sender, typeKey) -> {
+            HashReplacer chatMessage = new HashReplacer();
+            chatMessage.put("name", sender.getName().getString());
+            chatMessage.put("content", message.getSignedContent().plain());
+
+            publishViaPlayer(sender, modConfig.chatMessage, chatMessage);
+        });
     }
 
     public void loadConfig() {

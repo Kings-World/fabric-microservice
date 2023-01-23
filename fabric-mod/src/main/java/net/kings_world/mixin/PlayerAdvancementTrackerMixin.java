@@ -11,7 +11,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static net.kings_world.KingsWorld.modConfig;
 import static net.kings_world.Utils.publishViaPlayer;
+import static net.kings_world.Utils.HashReplacer;
 
 @Mixin(PlayerAdvancementTracker.class)
 public abstract class PlayerAdvancementTrackerMixin {
@@ -26,11 +28,11 @@ public abstract class PlayerAdvancementTrackerMixin {
         AdvancementProgress progress = this.getProgress(advancement);
         AdvancementDisplay display = advancement.getDisplay();
         if (display != null && progress.isDone() && display.shouldAnnounceToChat()) {
-            publishViaPlayer(this.owner, String.format(
-                ":medal: %s has completed the advancement **%s**!",
-                this.owner.getEntityName(),
-                display.getTitle().getString()
-            ));
+            HashReplacer playerAdvancement = new HashReplacer();
+            playerAdvancement.put("name", this.owner.getEntityName());
+            playerAdvancement.put("title", display.getTitle().getString());
+
+            publishViaPlayer(this.owner, modConfig.playerAdvancement, playerAdvancement);
         }
     }
 }
