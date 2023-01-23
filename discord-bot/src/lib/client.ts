@@ -10,12 +10,16 @@ const client = new SapphireClient({
     hmr: { enabled: !inProduction },
     shards: "auto",
     presence: {
-        activities: [
-            { name: "play.kings-world.net", type: ActivityType.Playing },
-        ],
+        activities: [{
+            name: "play.kings-world.net",
+            type: ActivityType.Playing
+        }],
     },
-    intents: [GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
-    allowedMentions: { repliedUser: false },
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
+    ]
 });
 
 container.webhook = new WebhookClient({

@@ -1,5 +1,5 @@
 import { RedisChannel } from "#lib/constants";
-import { contentWithAttachments } from "#lib/functions";
+import { formatAuthor, formatMessage } from "#lib/format";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener } from "@sapphire/framework";
 import type { Message } from "discord.js";
@@ -16,16 +16,16 @@ export class MessageCreate extends Listener {
             message.webhookId
         ) return;
 
-        let author = message.author.tag;
+        let author = formatAuthor(message);
 
         if (message.reference) {
             const reply = await message.fetchReference();
-            author = `${author} -> ${reply.author.tag}`;
+            author = `${author} -> ${formatAuthor(reply)}`;
         }
 
         await publisher.publish(
             RedisChannel.DiscordToMinecraft,
-            `${author} : ${contentWithAttachments(message)}`
+            `${author} : ${formatMessage(message)}`
         );
     }
 }

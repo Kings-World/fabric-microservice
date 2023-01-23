@@ -32,6 +32,7 @@ export function subscribeToMinecraft(name = RedisChannel.MinecraftToDiscord) {
                 username: data.name,
                 avatarURL: data.avatar,
                 content: data.content,
+                allowedMentions: { parse: ["roles", "users"] }
             });
         } else {
             const channel = await fetchChannel();
