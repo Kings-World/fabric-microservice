@@ -12,12 +12,12 @@ export function formatAuthor({ member, author }: Message) {
 }
 
 export function formatAttachments({ attachments, content }: Message) {
-    if (attachments.size === 0) return content;
+    if (!attachments.size) return content;
 
-    const isSpace = content.endsWith(" ");
-    const urls = attachments
-        .map((attachment) => highlight(attachment.url))
-        .join(" ");
+    const isSpace = !content.length || content.endsWith(" ");
+    const urls = highlight(attachments
+        .map((attachment) => `attachment://${attachment.name}`)
+        .join(" "));
 
     return content + (isSpace ? urls : ` ${urls}`);
 }
