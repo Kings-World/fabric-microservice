@@ -2,7 +2,7 @@ import { container } from "@sapphire/framework";
 import { Result } from "@sapphire/result";
 import { Stopwatch } from "@sapphire/stopwatch";
 import { envParseString } from "@skyra/env-utilities";
-import type { Awaitable, Message } from "discord.js";
+import type { Awaitable } from "discord.js";
 
 export async function timed<T>(
     fn: () => Awaitable<T>
@@ -42,15 +42,4 @@ export function isValidJson(data: string) {
     } catch {
         return false;
     }
-}
-
-export function contentWithAttachments({ attachments, content }: Message) {
-    if (attachments.size === 0) return content;
-
-    const isSpace = !content.length || content.endsWith(" ");
-    const urls = attachments
-        .map((attachment) => attachment.url)
-        .join(" ");
-
-    return content + (isSpace ? urls : ` ${urls}`);
 }

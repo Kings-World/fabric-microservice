@@ -23,7 +23,6 @@ declare module "@sapphire/pieces" {
     interface Container {
         subscriber: Redis;
         publisher: Redis;
-        channel: Awaited<ReturnType<typeof fetchChannel>>;
         webhook: WebhookClient;
     }
 }

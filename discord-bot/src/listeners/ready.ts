@@ -1,5 +1,4 @@
 import { inProduction } from "#lib/constants";
-import { fetchChannel } from "#lib/functions";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener, Store } from "@sapphire/framework";
 import { blue, gray, yellow } from "colorette";
@@ -12,7 +11,6 @@ export class Ready extends Listener {
     override async run(client: Client<true>) {
         this.printStoreDebugInformation();
         this.container.logger.info(`${client.user.tag} is now ready to go!`);
-        this.container.channel = await fetchChannel();
     }
 
     private printStoreDebugInformation() {
