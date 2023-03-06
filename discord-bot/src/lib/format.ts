@@ -4,6 +4,7 @@ export function formatMessage(message: Message) {
     message.content = formatCustomEmojis(message);
     message.content = formatMentions(message);
     message.content = formatAttachments(message);
+    message.content = formatStickers(message);
     return message.content;
 }
 
@@ -17,6 +18,17 @@ export function formatAttachments({ attachments, content }: Message) {
     const isSpace = !content.length || content.endsWith(" ");
     const urls = highlight(attachments
         .map((attachment) => `attachment://${attachment.name}`)
+        .join(" "));
+
+    return content + (isSpace ? urls : ` ${urls}`);
+}
+
+export function formatStickers({ stickers, content }: Message) {
+    if (!stickers.size) return content;
+
+    const isSpace = !content.length || content.endsWith(" ");
+    const urls = highlight(stickers
+        .map((sticker) => `sticker://${sticker.name}`)
         .join(" "));
 
     return content + (isSpace ? urls : ` ${urls}`);
