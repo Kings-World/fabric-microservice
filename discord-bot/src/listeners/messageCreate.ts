@@ -9,7 +9,6 @@ import type { Message } from "discord.js";
 export class MessageCreate extends Listener {
     override async run(message: Message) {
         const channel = await fetchChannel();
-        const { publisher } = this.container;
         if (
             message.channel.id !== channel.id ||
             (!message.content.length && !message.attachments.size) ||
@@ -25,7 +24,7 @@ export class MessageCreate extends Listener {
             author = `${author} -> ${formatAuthor(reply)}`;
         }
 
-        await publisher.publish(
+        await this.container.publisher.publish(
             RedisChannel.DiscordToMinecraft,
             `${author} : ${formatMessage(message)}`
         );
