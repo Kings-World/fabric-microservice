@@ -1,5 +1,6 @@
 import { RedisChannel } from "#lib/constants";
 import { formatAuthor, formatMessage } from "#lib/format";
+import { fetchChannel } from "#lib/functions";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener } from "@sapphire/framework";
 import type { Message } from "discord.js";
@@ -7,7 +8,8 @@ import type { Message } from "discord.js";
 @ApplyOptions<Listener.Options>({})
 export class MessageCreate extends Listener {
     override async run(message: Message) {
-        const { channel, publisher } = this.container;
+        const channel = await fetchChannel();
+        const { publisher } = this.container;
         if (
             message.channel.id !== channel.id ||
             (!message.content.length && !message.attachments.size) ||
