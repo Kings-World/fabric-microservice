@@ -24,8 +24,6 @@ export class MessageCreate extends Listener {
             author = `${author} -> ${formatAuthor(reply)}`;
         }
 
-        console.log(`${author} : ${formatMessage(message)}`);
-
         await this.container.publisher.publish(
             RedisChannel.DiscordToMinecraft,
             `${author} : ${formatMessage(message)}`
