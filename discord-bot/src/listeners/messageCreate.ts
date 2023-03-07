@@ -11,7 +11,7 @@ export class MessageCreate extends Listener {
         const channel = await fetchChannel();
         if (
             message.channel.id !== channel.id ||
-            (!message.content.length && !message.attachments.size) ||
+            (!message.content.length && !message.attachments.size && !message.stickers.size) ||
             message.author.bot ||
             message.system ||
             message.webhookId
@@ -23,6 +23,8 @@ export class MessageCreate extends Listener {
             const reply = await message.fetchReference();
             author = `${author} -> ${formatAuthor(reply)}`;
         }
+
+        console.log(`${author} : ${formatMessage(message)}`);
 
         await this.container.publisher.publish(
             RedisChannel.DiscordToMinecraft,
