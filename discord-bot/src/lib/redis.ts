@@ -2,8 +2,7 @@ import Redis, { RedisOptions } from "ioredis";
 import { envParseString, envParseInteger, envParseBoolean } from "@skyra/env-utilities";
 import { container } from "@sapphire/framework";
 import { RedisChannel } from "./constants.js";
-import { parseSchema } from "./zod.js";
-import { fetchChannel, isValidJson } from "./functions.js";
+import { fetchChannel, parseMessageJson, isValidJson } from "./functions.js";
 
 export async function connectToRedis() {
     const options: RedisOptions = {
@@ -27,7 +26,7 @@ export function subscribeToMinecraft(name = RedisChannel.MinecraftToDiscord) {
         if (name !== redisChannel) return;
 
         if (isValidJson(message)) {
-            const data = parseSchema(message);
+            const data = parseMessageJson(message);
             await webhook.send({
                 username: data.name,
                 avatarURL: data.avatar,

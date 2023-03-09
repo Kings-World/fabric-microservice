@@ -3,6 +3,7 @@ import { Result } from "@sapphire/result";
 import { Stopwatch } from "@sapphire/stopwatch";
 import { envParseString } from "@skyra/env-utilities";
 import type { Awaitable } from "discord.js";
+import { messageSchema, statusSchema } from "./zod.js";
 
 export async function timed<T>(
     fn: () => Awaitable<T>
@@ -24,6 +25,17 @@ export async function fetchChannel() {
     if (!channel.isTextBased()) throw new Error(`Channel #${channel.name} is not text based`);
 
     return channel;
+}
+
+export async function fetchStatus() {
+    const request = await fetch(`https://api.mcstatus.io/v2/status/java/${envParseString("SERVER_ADDRESS")}`);
+    const json = await request.json();
+    return statusSchema.parse(json);
+}
+
+export function parseMessageJson(data: unknown) {
+    if (typeof data === "string") data = safeParseJson(data);
+    return messageSchema.parse(data);
 }
 
 export function safeParseJson(data: string) {

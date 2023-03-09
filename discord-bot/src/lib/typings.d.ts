@@ -10,6 +10,9 @@ declare module "@skyra/env-utilities" {
         WEBHOOK_URL: string;
         CHANNEL_ID: string;
 
+        // minecraft
+        SERVER_ADDRESS: string;
+
         // redis
         REDIS_HOST: string;
         REDIS_PORT: IntegerString;

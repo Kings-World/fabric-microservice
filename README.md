@@ -50,6 +50,8 @@ services:
       DISCORD_TOKEN: # bot token (required)
       WEBHOOK_URL: # webhook url (required)
       CHANNEL_ID: # channel id (required)
+      # minecraft
+      SERVER_ADDRESS: # server address (required)
       # redis
       REDIS_HOST: 127.0.0.1 # redis host (optional)
       REDIS_PORT: 6379 # redis port (optional)
